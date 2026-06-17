@@ -6,6 +6,8 @@ categories = ['Electronics', 'Furniture', 'Office Supplies', 'Software', 'Access
 regions = ['Northeast', 'Southeast', 'Midwest', 'West', 'Southwest']
 segments = ['enterprise', 'mid-market', 'small-biz']
 statuses = ['delivered', 'pending', 'cancelled']
+ticket_categories = ['billing', 'technical', 'shipping', 'account', 'product']
+priorities = ['low', 'medium', 'high']
 
 
 products = []
@@ -118,3 +120,35 @@ with open('data/invoices.csv', 'w', newline='') as file:
     writer = csv.DictWriter(file, fieldnames=invoices[0].keys())
     writer.writeheader()
     writer.writerows(invoices)
+
+
+tickets = []
+
+for ticket_id in range(1, 301):
+    created_date = datetime(2023, 1, 1) + timedelta(days=random.randint(0, 700))
+    status = random.choice(['open', 'closed', 'pending'])
+    
+    if status == 'closed':
+        resolved_date = (created_date + timedelta(days=random.randint(1, 14))).strftime('%Y-%m-%d')
+    else:
+        resolved_date = ''
+    
+    ticket = {
+        'ticket_id': ticket_id,
+        'customer_id': random.randint(1, 200),
+        'created_date': created_date.strftime('%Y-%m-%d'),
+        'resolved_date': resolved_date,
+        'category': random.choice(ticket_categories),
+        'priority': random.choice(priorities),
+        'status': status
+    }
+    tickets.append(ticket)
+
+print(tickets[0])
+print(tickets[1])       
+print(f"Total tickets created: {len(tickets)}")
+
+with open('data/tickets.csv', 'w', newline='') as file:
+    writer = csv.DictWriter(file, fieldnames=tickets[0].keys())
+    writer.writeheader()
+    writer.writerows(tickets)
