@@ -5,6 +5,8 @@ from datetime import datetime, timedelta
 categories = ['Electronics', 'Furniture', 'Office Supplies', 'Software', 'Accessories']
 regions = ['Northeast', 'Southeast', 'Midwest', 'West', 'Southwest']
 segments = ['enterprise', 'mid-market', 'small-biz']
+statuses = ['delivered', 'pending', 'cancelled']
+
 
 products = []
 
@@ -33,7 +35,7 @@ print("Saved to data/products.csv")
 
 customers = []
 
-for customer_id in  range(1,201):
+for customer_id in range(1,201):
     customer = {
         'customer_id': customer_id,
         'name': f'Company_{customer_id}',
@@ -54,3 +56,33 @@ with open('data/customers.csv', 'w', newline='') as file:
     writer.writerows(customers)
 
 print("Saved to data/customers.csv")
+
+
+orders = []
+
+for order_id in range(1, 501):
+    order_date = datetime(2023, 1, 1) + timedelta(days=random.randint(0, 700))
+    expected_delivery = order_date + timedelta(days=random.randint(3, 10))
+    actual_delivery = expected_delivery + timedelta(days=random.randint(-2, 5))
+    
+    order = {
+        'order_id': order_id,
+        'customer_id': random.randint(1, 200),
+        'order_date': order_date.strftime('%Y-%m-%d'),
+        'expected_delivery': expected_delivery.strftime('%Y-%m-%d'),
+        'actual_delivery': actual_delivery.strftime('%Y-%m-%d'),
+        'status': random.choice(statuses),
+        'total_amount': 0
+    }
+    orders.append(order)
+
+print(orders[0])
+print(orders[1])
+print(f"Total orders created: {len(orders)}")
+
+with open('data/orders.csv', 'w', newline='') as file:
+    writer = csv.DictWriter(file, fieldnames=orders[0].keys())
+    writer.writeheader()
+    writer.writerows(orders)
+
+print("Saved to data/orders.csv")

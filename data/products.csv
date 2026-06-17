@@ -1,51 +1,51 @@
 product_id,name,category,unit_price,reorder_level,stock_quantity
-1,Product_1,Furniture,422.64,17,194
-2,Product_2,Accessories,28.36,38,38
-3,Product_3,Electronics,374.16,32,195
-4,Product_4,Furniture,241.63,33,162
-5,Product_5,Furniture,178.68,45,188
-6,Product_6,Software,219.32,19,199
-7,Product_7,Electronics,273.07,36,183
-8,Product_8,Electronics,80.87,29,31
-9,Product_9,Electronics,13.64,36,180
-10,Product_10,Accessories,50.23,41,109
-11,Product_11,Office Supplies,411.83,42,50
-12,Product_12,Office Supplies,457.77,48,140
-13,Product_13,Software,396.67,35,112
-14,Product_14,Office Supplies,62.25,37,10
-15,Product_15,Accessories,237.45,16,177
-16,Product_16,Electronics,302.51,27,40
-17,Product_17,Accessories,12.2,35,160
-18,Product_18,Electronics,135.61,44,97
-19,Product_19,Office Supplies,244.36,15,21
-20,Product_20,Office Supplies,174.39,10,139
-21,Product_21,Accessories,481.34,44,175
-22,Product_22,Office Supplies,226.03,14,128
-23,Product_23,Software,53.26,22,72
-24,Product_24,Electronics,110.67,20,68
-25,Product_25,Accessories,224.42,21,37
-26,Product_26,Electronics,274.49,33,199
-27,Product_27,Accessories,163.54,15,68
-28,Product_28,Furniture,204.07,48,60
-29,Product_29,Office Supplies,91.19,47,106
-30,Product_30,Office Supplies,196.6,23,18
-31,Product_31,Office Supplies,182.5,23,45
-32,Product_32,Electronics,321.07,38,94
-33,Product_33,Electronics,200.67,40,79
-34,Product_34,Office Supplies,362.49,45,104
-35,Product_35,Accessories,392.6,18,133
-36,Product_36,Furniture,387.36,32,125
-37,Product_37,Electronics,467.58,27,12
-38,Product_38,Furniture,172.09,25,45
-39,Product_39,Software,478.7,14,128
-40,Product_40,Furniture,432.53,29,65
-41,Product_41,Software,189.8,23,34
-42,Product_42,Software,114.09,15,196
-43,Product_43,Software,113.08,35,20
-44,Product_44,Software,346.89,20,12
-45,Product_45,Office Supplies,415.59,13,131
-46,Product_46,Furniture,226.63,50,19
-47,Product_47,Furniture,149.64,45,78
-48,Product_48,Software,303.85,12,23
-49,Product_49,Office Supplies,185.08,46,6
-50,Product_50,Office Supplies,113.42,13,117
+1,Product_1,Electronics,172.2,48,193
+2,Product_2,Electronics,234.25,30,9
+3,Product_3,Accessories,45.1,16,119
+4,Product_4,Office Supplies,187.79,40,3
+5,Product_5,Office Supplies,43.4,41,86
+6,Product_6,Accessories,368.69,50,17
+7,Product_7,Office Supplies,147.73,12,31
+8,Product_8,Electronics,263.39,42,73
+9,Product_9,Furniture,258.59,29,84
+10,Product_10,Furniture,463.6,18,95
+11,Product_11,Software,94.43,10,167
+12,Product_12,Office Supplies,46.04,35,43
+13,Product_13,Furniture,442.34,16,166
+14,Product_14,Office Supplies,231.3,31,121
+15,Product_15,Accessories,188.55,41,164
+16,Product_16,Electronics,40.86,30,151
+17,Product_17,Electronics,77.14,45,172
+18,Product_18,Software,111.49,42,14
+19,Product_19,Software,358.24,40,38
+20,Product_20,Electronics,279.74,11,85
+21,Product_21,Software,188.0,25,9
+22,Product_22,Furniture,129.32,34,47
+23,Product_23,Furniture,361.37,32,100
+24,Product_24,Accessories,142.29,40,145
+25,Product_25,Accessories,92.42,47,113
+26,Product_26,Furniture,402.19,25,49
+27,Product_27,Furniture,22.44,11,156
+28,Product_28,Electronics,295.69,31,115
+29,Product_29,Furniture,139.32,29,98
+30,Product_30,Electronics,74.85,19,85
+31,Product_31,Furniture,218.46,13,194
+32,Product_32,Electronics,19.38,46,179
+33,Product_33,Electronics,348.52,16,134
+34,Product_34,Software,244.4,41,66
+35,Product_35,Software,359.23,39,154
+36,Product_36,Software,183.05,17,157
+37,Product_37,Software,473.32,21,37
+38,Product_38,Accessories,47.88,48,34
+39,Product_39,Software,395.41,46,172
+40,Product_40,Office Supplies,105.89,20,152
+41,Product_41,Office Supplies,339.03,26,0
+42,Product_42,Furniture,474.18,28,93
+43,Product_43,Accessories,63.09,22,27
+44,Product_44,Furniture,199.79,46,142
+45,Product_45,Accessories,421.14,35,190
+46,Product_46,Furniture,379.88,43,52
+47,Product_47,Electronics,32.9,45,181
+48,Product_48,Software,82.36,40,179
+49,Product_49,Accessories,189.58,28,153
+50,Product_50,Electronics,6.09,17,119
