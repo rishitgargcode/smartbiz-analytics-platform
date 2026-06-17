@@ -86,3 +86,35 @@ with open('data/orders.csv', 'w', newline='') as file:
     writer.writerows(orders)
 
 print("Saved to data/orders.csv")
+
+invoices = []
+
+for invoice_id in range(1, 601):
+    issue_date = datetime(2023, 1, 1) + timedelta(days=random.randint(0, 700))
+    due_date = issue_date + timedelta(days=30)
+    status = random.choice(['paid', 'overdue', 'pending'])
+    
+    if status == 'paid':
+        paid_date = (issue_date + timedelta(days=random.randint(1, 35))).strftime('%Y-%m-%d')
+    else:
+        paid_date = ''
+    
+    invoice = {
+        'invoice_id': invoice_id,
+        'order_id': random.randint(1, 500),
+        'issue_date': issue_date.strftime('%Y-%m-%d'),
+        'due_date': due_date.strftime('%Y-%m-%d'),
+        'paid_date': paid_date,
+        'amount': round(random.uniform(20, 2000), 2),
+        'status': status
+    }
+    invoices.append(invoice)
+
+print(invoices[0])
+print(invoices[1])
+print(f"Total invoices created: {len(invoices)}")
+
+with open('data/invoices.csv', 'w', newline='') as file:
+    writer = csv.DictWriter(file, fieldnames=invoices[0].keys())
+    writer.writeheader()
+    writer.writerows(invoices)
