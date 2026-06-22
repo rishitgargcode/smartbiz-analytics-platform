@@ -50,7 +50,17 @@ Python · Pandas · scikit-learn · SQLite · Power BI · Git/GitHub
 
 ## Status
 
-In progress — built as part of a self-directed summer learning plan (June–August 2026) covering SQL, Python, and Power BI ahead of starting my MS in Management Information Systems at the University at Buffalo this fall.
+In progress — built as part of a self-directed summer learning plan (June–August 2026).
+
+**Phase 1 — Complete ✅**
+- 6-table relational database designed and built in SQLite
+- 2,643 records generated across all tables using Python
+- Full data generation script (generate_data.py) with realistic conditional logic
+
+**Phase 2 — In Progress 🔄**
+- 15+ SQL business analysis queries
+- Python predictive models (churn, late payments, stockout alerts)
+- Power BI executive dashboard (5 pages)
 
 ---
 
