@@ -152,3 +152,29 @@ with open('data/tickets.csv', 'w', newline='') as file:
     writer = csv.DictWriter(file, fieldnames=tickets[0].keys())
     writer.writeheader()
     writer.writerows(tickets)
+
+order_items = []
+item_id = 1
+
+for order_id in range(1, 501):
+    num_items = random.randint(1, 3)
+    for _ in range(num_items):
+        product = random.choice(products)
+        order_item = {
+            'item_id': item_id,
+            'order_id': order_id,
+            'product_id': product['product_id'],
+            'quantity': random.randint(1, 5),
+            'unit_price': product['unit_price']
+        }
+        order_items.append(order_item)
+        item_id += 1
+
+print(order_items[0])
+print(order_items[1])   
+print(f"Total order items created: {len(order_items)}")
+
+with open('data/order_items.csv', 'w', newline='') as file:
+    writer = csv.DictWriter(file, fieldnames=order_items[0].keys())
+    writer.writeheader()
+    writer.writerows(order_items)
