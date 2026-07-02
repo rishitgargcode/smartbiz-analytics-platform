@@ -9,9 +9,8 @@ statuses = ['delivered', 'pending', 'cancelled']
 ticket_categories = ['billing', 'technical', 'shipping', 'account', 'product']
 priorities = ['low', 'medium', 'high']
 
-
+# PRODUCTS
 products = []
-
 for product_id in range(1, 51):
     product = {
         'product_id': product_id,
@@ -23,21 +22,15 @@ for product_id in range(1, 51):
     }
     products.append(product)
 
-print(products[0])
-print(products[1])
-print(f"Total products created: {len(products)}")
-
-
 with open('data/products.csv', 'w', newline='') as file:
     writer = csv.DictWriter(file, fieldnames=products[0].keys())
     writer.writeheader()
     writer.writerows(products)
+print(f"Products: {len(products)} rows saved")
 
-print("Saved to data/products.csv")
-
+# CUSTOMERS
 customers = []
-
-for customer_id in range(1,201):
+for customer_id in range(1, 201):
     customer = {
         'customer_id': customer_id,
         'name': f'Company_{customer_id}',
@@ -48,20 +41,47 @@ for customer_id in range(1,201):
     }
     customers.append(customer)
 
-print(customers[0])
-print(customers[1])
-print(f"Total customers created: {len(customers)}")
-
 with open('data/customers.csv', 'w', newline='') as file:
     writer = csv.DictWriter(file, fieldnames=customers[0].keys())
     writer.writeheader()
     writer.writerows(customers)
+print(f"Customers: {len(customers)} rows saved")
 
-print("Saved to data/customers.csv")
+# ORDER ITEMS FIRST (so we can calculate order totals)
+order_items = []
+item_id = 1
+order_totals = {}  # stores total_amount per order_id
 
+for order_id in range(1, 501):
+    num_items = random.randint(1, 3)
+    order_total = 0
+    
+    for _ in range(num_items):
+        product = random.choice(products)
+        quantity = random.randint(1, 5)
+        unit_price = product['unit_price']
+        order_total += quantity * unit_price
+        
+        order_item = {
+            'item_id': item_id,
+            'order_id': order_id,
+            'product_id': product['product_id'],
+            'quantity': quantity,
+            'unit_price': unit_price
+        }
+        order_items.append(order_item)
+        item_id += 1
+    
+    order_totals[order_id] = round(order_total, 2)
 
+with open('data/order_items.csv', 'w', newline='') as file:
+    writer = csv.DictWriter(file, fieldnames=order_items[0].keys())
+    writer.writeheader()
+    writer.writerows(order_items)
+print(f"Order items: {len(order_items)} rows saved")
+
+# ORDERS (now with real total_amount)
 orders = []
-
 for order_id in range(1, 501):
     order_date = datetime(2023, 1, 1) + timedelta(days=random.randint(0, 700))
     expected_delivery = order_date + timedelta(days=random.randint(3, 10))
@@ -74,23 +94,18 @@ for order_id in range(1, 501):
         'expected_delivery': expected_delivery.strftime('%Y-%m-%d'),
         'actual_delivery': actual_delivery.strftime('%Y-%m-%d'),
         'status': random.choice(statuses),
-        'total_amount': 0
+        'total_amount': order_totals[order_id]
     }
     orders.append(order)
-
-print(orders[0])
-print(orders[1])
-print(f"Total orders created: {len(orders)}")
 
 with open('data/orders.csv', 'w', newline='') as file:
     writer = csv.DictWriter(file, fieldnames=orders[0].keys())
     writer.writeheader()
     writer.writerows(orders)
+print(f"Orders: {len(orders)} rows saved")
 
-print("Saved to data/orders.csv")
-
+# INVOICES
 invoices = []
-
 for invoice_id in range(1, 601):
     issue_date = datetime(2023, 1, 1) + timedelta(days=random.randint(0, 700))
     due_date = issue_date + timedelta(days=30)
@@ -112,18 +127,14 @@ for invoice_id in range(1, 601):
     }
     invoices.append(invoice)
 
-print(invoices[0])
-print(invoices[1])
-print(f"Total invoices created: {len(invoices)}")
-
 with open('data/invoices.csv', 'w', newline='') as file:
     writer = csv.DictWriter(file, fieldnames=invoices[0].keys())
     writer.writeheader()
     writer.writerows(invoices)
+print(f"Invoices: {len(invoices)} rows saved")
 
-
+# TICKETS
 tickets = []
-
 for ticket_id in range(1, 301):
     created_date = datetime(2023, 1, 1) + timedelta(days=random.randint(0, 700))
     status = random.choice(['open', 'closed', 'pending'])
@@ -144,37 +155,16 @@ for ticket_id in range(1, 301):
     }
     tickets.append(ticket)
 
-print(tickets[0])
-print(tickets[1])       
-print(f"Total tickets created: {len(tickets)}")
-
 with open('data/tickets.csv', 'w', newline='') as file:
     writer = csv.DictWriter(file, fieldnames=tickets[0].keys())
     writer.writeheader()
     writer.writerows(tickets)
+print(f"Tickets: {len(tickets)} rows saved")
 
-order_items = []
-item_id = 1
-
-for order_id in range(1, 501):
-    num_items = random.randint(1, 3)
-    for _ in range(num_items):
-        product = random.choice(products)
-        order_item = {
-            'item_id': item_id,
-            'order_id': order_id,
-            'product_id': product['product_id'],
-            'quantity': random.randint(1, 5),
-            'unit_price': product['unit_price']
-        }
-        order_items.append(order_item)
-        item_id += 1
-
-print(order_items[0])
-print(order_items[1])   
-print(f"Total order items created: {len(order_items)}")
-
-with open('data/order_items.csv', 'w', newline='') as file:
-    writer = csv.DictWriter(file, fieldnames=order_items[0].keys())
-    writer.writeheader()
-    writer.writerows(order_items)
+print("\nAll done! Total records:")
+print(f"  Products: {len(products)}")
+print(f"  Customers: {len(customers)}")
+print(f"  Order items: {len(order_items)}")
+print(f"  Orders: {len(orders)}")
+print(f"  Invoices: {len(invoices)}")
+print(f"  Tickets: {len(tickets)}")
