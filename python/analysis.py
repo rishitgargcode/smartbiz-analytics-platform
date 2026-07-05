@@ -56,7 +56,6 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 
-# Convert segment and region from text to numbers
 le_segment = LabelEncoder()
 le_region = LabelEncoder()
 features['segment_encoded'] = le_segment.fit_transform(features['segment'])
@@ -73,11 +72,11 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 print(f"Training on {len(X_train)} customers")
 print(f"Testing on {len(X_test)} customers")
 
-# Train the model
+# Train the model (builds 100 decision trees)
 model = RandomForestClassifier(n_estimators=100, random_state=42)
 model.fit(X_train, y_train)
 
-# est accuracy
+#Test accuracy
 accuracy = model.score(X_test, y_test)
 print(f"Model accuracy: {round(accuracy * 100, 1)}%")
 

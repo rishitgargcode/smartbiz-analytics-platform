@@ -58,9 +58,12 @@ In progress — built as part of a self-directed summer learning plan (June–Au
 - Full data generation script (generate_data.py) with realistic conditional logic
 
 **Phase 2 — In Progress 🔄**
-- 15+ SQL business analysis queries
-- Python predictive models (churn, late payments, stockout alerts)
-- Power BI executive dashboard (5 pages)
+- 15 SQL business analysis queries ✅
+- Python predictive models:
+  - Customer churn risk model (RandomForest classifier) ✅
+  - Late invoice payment predictor (in progress)
+  - Inventory stockout alerts (coming soon)
+- Power BI executive dashboard (5 pages) — coming soon
 
 ---
 
@@ -70,7 +73,8 @@ In progress — built as part of a self-directed summer learning plan (June–Au
 2. Run `python python/generate_data.py` to generate all datasets
 3. Open `data/smartbiz.db` in DB Browser for SQLite to explore the database
 4. Run queries from `sql/business_queries.sql`
-5. Power BI dashboard file coming soon
+5. Run `python python/analysis.py` to generate churn risk scores
+6. View top 20 at-risk customers in `data/churn_risk_customers.csv`
 
 ---
 
