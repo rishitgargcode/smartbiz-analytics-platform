@@ -94,3 +94,27 @@ print(top_churn.to_string())
 
 top_churn.to_csv('data/churn_risk_customers.csv', index=False)
 print("Saved churn results to data/churn_risk_customers.csv")
+
+
+import matplotlib.pyplot as plt
+
+feature_names = ['days_since_order', 'total_orders', 'total_spend', 
+                 'segment_encoded', 'region_encoded']
+importances = model.feature_importances_
+
+for name, score in zip(feature_names, importances):
+    print(f"{name}: {round(score, 3)}")
+
+#Visualize
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(10, 6))
+sns.histplot(features['churn_risk_score'], bins=20, color='red')
+plt.title('Customer Churn Risk Score Distribution')
+plt.xlabel('Churn Risk Score')
+plt.ylabel('Number of Customers')
+plt.tight_layout()
+plt.savefig('data/churn_distribution.png')
+plt.show()
+print("Chart saved!")
