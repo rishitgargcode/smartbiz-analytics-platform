@@ -118,3 +118,63 @@ plt.tight_layout()
 plt.savefig('data/churn_distribution.png')
 plt.show()
 print("Chart saved!")
+
+# LATE INVOICE PREDICTOR
+invoice_features = invoices.merge(
+    orders[['order_id', 'customer_id']], 
+    on='order_id', 
+    how='left'
+)
+invoice_features = invoice_features.merge(
+    customers[['customer_id', 'segment', 'region']], 
+    on='customer_id', 
+    how='left'
+)
+
+invoice_features['paid_date'] = pd.to_datetime(invoice_features['paid_date'], errors='coerce')
+invoice_features['due_date'] = pd.to_datetime(invoice_features['due_date'], errors='coerce')
+
+invoice_features['paid_late'] = (
+    invoice_features['paid_date'] > invoice_features['due_date']
+).astype(int)
+
+print(f"Late payments: {invoice_features['paid_late'].sum()}")
+print(f"On time payments: {(invoice_features['paid_late'] == 0).sum()}")
+
+# Step 3: Prepare features
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+
+le_segment = LabelEncoder()
+le_region = LabelEncoder()
+
+invoice_features['segment_encoded'] = le_segment.fit_transform(
+    invoice_features['segment'].fillna('unknown'))
+invoice_features['region_encoded'] = le_region.fit_transform(
+    invoice_features['region'].fillna('unknown'))
+invoice_features['amount'] = invoice_features['amount'].fillna(0)
+
+X_inv = invoice_features[['amount', 'segment_encoded', 'region_encoded']]
+y_inv = invoice_features['paid_late']
+
+X_train_inv, X_test_inv, y_train_inv, y_test_inv = train_test_split(
+    X_inv, y_inv, test_size=0.2, random_state=42)
+
+
+model_inv = RandomForestClassifier(n_estimators=100, random_state=42)
+model_inv.fit(X_train_inv, y_train_inv)
+
+accuracy_inv = model_inv.score(X_test_inv, y_test_inv)
+print(f"Invoice model accuracy: {round(accuracy_inv * 100, 1)}%")
+
+
+invoice_features['late_payment_risk'] = model_inv.predict_proba(X_inv)[:, 1]
+high_risk = invoice_features[['invoice_id', 'amount', 'segment', 
+                               'late_payment_risk']].sort_values(
+                               'late_payment_risk', ascending=False).head(20)
+print("\nTop 20 high risk invoices:")
+print(high_risk.to_string())
+
+high_risk.to_csv('data/late_payment_risk.csv', index=False)
+print("Saved to data/late_payment_risk.csv")
