@@ -178,3 +178,33 @@ print(high_risk.to_string())
 
 high_risk.to_csv('data/late_payment_risk.csv', index=False)
 print("Saved to data/late_payment_risk.csv")
+
+# STOCKOUT ALERTS
+
+daily_sales = order_items.groupby('product_id')['quantity'].sum().reset_index()
+daily_sales.columns = ['product_id', 'total_units_sold']
+
+stockout = products.merge(daily_sales, on='product_id', how='left')
+stockout['total_units_sold'] = stockout['total_units_sold'].fillna(0)
+
+stockout['avg_daily_sales'] = stockout['total_units_sold'] / 700
+stockout['days_of_stock'] = stockout.apply(
+    lambda row: row['stock_quantity'] / row['avg_daily_sales'] 
+    if row['avg_daily_sales'] > 0 else 999,
+    axis=1
+)
+
+stockout['risk_level'] = stockout['days_of_stock'].apply(
+    lambda x: 'CRITICAL' if x < 30 else ('WARNING' if x < 60 else 'OK')
+)
+
+critical = stockout[stockout['risk_level'] == 'CRITICAL'][
+    ['name', 'category', 'stock_quantity', 'reorder_level', 
+     'days_of_stock', 'risk_level']
+].sort_values('days_of_stock')
+
+print(f"\nCritical stockout alerts: {len(critical)}")
+print(critical.to_string())
+
+stockout.to_csv('data/stockout_alerts.csv', index=False)
+print("Saved to data/stockout_alerts.csv")
